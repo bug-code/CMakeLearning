@@ -1,16 +1,18 @@
-# cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
-# project(CMakeLib LANGUAGES CXX)
-# #将Message源文件编译成静态库
-# #CMAKE_CURRENT_SOURCE_DIR当前cmakelists.txt文件所在目录
-# add_library(Message
-# STATIC
-#     ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message.hpp
-#     ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message.cpp
-# )
-# #Helloworld编译成可执行文件
-# add_executable(Helloworld ${CMAKE_CURRENT_SOURCE_DIR}/src/Helloworld.cpp)
-# #Message静态库链接到将helloworld文件
-# target_link_libraries(Helloworld Message)
+
+#不适合多层级结构的cmake
+cmake_minimum_required(VERSION 3.21.5 FATAL_ERROR)
+project(CMakeLib LANGUAGES CXX)
+#将Message源文件编译成静态库
+#CMAKE_CURRENT_SOURCE_DIR当前cmakelists.txt文件所在目录
+add_library(Message
+STATIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message.cpp
+)
+#Helloworld编译成可执行文件
+add_executable(Helloworld ${CMAKE_CURRENT_SOURCE_DIR}/src/Helloworld.cpp)
+#Message静态库链接到将helloworld文件
+target_link_libraries(Helloworld Message)
 
 ###############创建对象库
 # cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
@@ -84,16 +86,16 @@
 # target_link_libraries(Helloworld Message_shared)
 
 ##################链接已有的第三方库.so文件
-cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
-project(CMakeLib LANGUAGES CXX)
-#添加库 .h头文件路径
-target_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/include)
-# include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/include)
-#添加要链接库.so文件的路径
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/lib)
-#Helloworld编译成可执行文件
-add_executable(Helloworld ${CMAKE_CURRENT_SOURCE_DIR}/src/Helloworld.cpp)
-#Message静态库链接到将helloworld文件
-target_link_libraries(Helloworld libMessage.so)
+# cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
+# project(CMakeLib LANGUAGES CXX)
+# #添加库 .h头文件路径
+# target_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/include)
+# # include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/include)
+# #添加要链接库.so文件的路径
+# link_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/Message/lib)
+# #Helloworld编译成可执行文件
+# add_executable(Helloworld ${CMAKE_CURRENT_SOURCE_DIR}/src/Helloworld.cpp)
+# #Message静态库链接到将helloworld文件
+# target_link_libraries(Helloworld libMessage.so)
 
 
