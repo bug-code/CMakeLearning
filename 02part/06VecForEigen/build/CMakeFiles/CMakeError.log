@@ -1,0 +1,16 @@
+Performing C++ SOURCE FILE Test _xhost_works failed with the following output:
+Change Dir: /home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_0b81d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_0b81d.dir/build.make CMakeFiles/cmTC_0b81d.dir/build
+gmake[1]: Entering directory '/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_0b81d.dir/src.cxx.o
+/usr/bin/c++ -D_xhost_works  -xHost -o CMakeFiles/cmTC_0b81d.dir/src.cxx.o -c /home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: language Host not recognized
+c++: error: language Host not recognized
+gmake[1]: *** [CMakeFiles/cmTC_0b81d.dir/build.make:78: CMakeFiles/cmTC_0b81d.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_0b81d/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

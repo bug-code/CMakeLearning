@@ -1,0 +1,4 @@
+/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/linear-algebra-unoptimized.dir
+/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/linear-algebra.dir
+/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/edit_cache.dir
+/home/CMakeLearning/part02/06VecForEigen/build/CMakeFiles/rebuild_cache.dir

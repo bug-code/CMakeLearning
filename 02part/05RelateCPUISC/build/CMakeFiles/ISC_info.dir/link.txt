@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/ISC_info.dir/processor_info.cpp.o -o ISC_info 
