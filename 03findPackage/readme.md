@@ -387,12 +387,39 @@ target_link_libraries(path-info
 当某个库既没有find-module的查找模块，也软件商也不提供打包的cmake文件。
 - 使用pkg-config程序，来找系统上的包。这些依赖与软件供应商提供.pc配置文件，其中有关于发行包的元数据
 - 自己写find-package模块
-## 使用pkg-config查找库
+
+四种查找依赖包的方式：
+1. 使用由包供应商提供CMake文件<package>Config.cmake ，<package>ConfigVersion.cmake和<package>Targets.cmake，通常会在包的标准安装位置查找。
+2. 无论是由CMake还是第三方提供的模块，为所需包使用find-module。使用官方或其他人写的findxxx.cmake
+3. 使用pkg-config模式。
+4. 如果这些都不可行，那么编写自己的find模块
+  
+  
+# 使用pkg-config查找库
 ```cmake
 find_package(PkgConfig REQUIRED QUIET)#QUIET找不到库才报错
 ```
-### 搜索.pc配置文件
+## 搜索.pc配置文件
 通过使用PkgConfig库的`pkg_search_module`函数搜索附带 包配置.pc文件的库或程序。以ZeroMQ为例
+
+```bash
+apt-get install libzmq3-dev#安装zeroMQ库，该库没有提供findxxx.cmake文件
+```
+
+查看安装的内容
+```
+root@LAPTOP-Q8TAP9VQ:/usr# find -name "*zmq*"
+./include/zmq.h
+./include/zmq.hpp
+./include/zmq_addon.hpp
+./include/zmq_utils.h
+./lib/x86_64-linux-gnu/libzmq.a
+./lib/x86_64-linux-gnu/libzmq.so
+./lib/x86_64-linux-gnu/libzmq.so.5
+./lib/x86_64-linux-gnu/libzmq.so.5.2.4
+./lib/x86_64-linux-gnu/pkgconfig/libzmq.pc
+```
+存在.pc文件，可以使用config模式进行查找库
 ```cmake
 pkg_search_module(
   ZeroMQ
@@ -402,14 +429,25 @@ pkg_search_module(
   )
 ```
 其中libzeromq libzmq lib0mq是ZeroMQ库在不同操作系统和包管理器中的不同名称。如此设置可以根据操作系统和包管理器的统统，为同一个包选择同一个名称。
-### cmake函数
+## cmake函数
 当找到pkg-config时, CMake需要提供两个函数，来封装这个程序提供的功能:
 - pkg_check_modules，查找传递列表中的所有模块(库和/或程序)
 - pkg_search_module，要在传递的列表中找到第一个工作模块
 
-### 链接到库
+## 链接到库
 ```cmake
 target_link_libraries(targetName PkgConfig::ZeroMQ)
 ```
 
+# 自定义find库
+自己编写findxxx.cmake遵循以下步骤：
+1. 检查用户是否为所需要的包提供了自定义的位置
+2. 使用find_家族中的命令搜索所需包的必需组件：头文件，库，可执行程序等。
+    - 使用find_path查找头文件完整路径
+    - 使用find_library查找库
+    - 其他还有find_file , find_program, find_package
+3. 如果搜索成功，将结果报错，如果搜索失败，则会设置为\<var\>-NOTFOUND。
+4. 初步搜索结果中，提取版本号。
+5. 调用调用find_package_handle_standard_args命令。处理find_package命令的REQUIRED、QUIET和版本参数，并设置xxx_FOUND变量
 
+**编写findxxx.cmake最主要的是查找到库文件的头文件路径和链接库路径。即lib和include路径。除非特定指定了版本，或者系统安装了多个版本的库，否则查找版本可以不用。（找到lib和include基本就能用了）**
