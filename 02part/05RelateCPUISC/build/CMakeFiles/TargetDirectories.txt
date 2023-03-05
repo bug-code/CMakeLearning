@@ -1,3 +1,0 @@
-/home/CMakeLearning/part02/05RelateCPUISC/build/CMakeFiles/ISC_info.dir
-/home/CMakeLearning/part02/05RelateCPUISC/build/CMakeFiles/edit_cache.dir
-/home/CMakeLearning/part02/05RelateCPUISC/build/CMakeFiles/rebuild_cache.dir
