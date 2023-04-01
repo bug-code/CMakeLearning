@@ -1,3 +1,3 @@
 # CMakeLearning
 
-cmakelearning 学习笔记
+cmake学习笔记
