@@ -1,0 +1,26 @@
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
+include(CheckFortranCompilerFlag)
+function(set_compiler_flag _result _lang)
+  set(_valid_flags)
+  #测试编译选项是否可用
+  foreach(flag IN ITEMS ${ARGN})
+      unset(_flag_works CACHE)
+      if(_lang STREQUAL "C")
+          check_c_compiler_flag("${flag}" _flag_works)
+      elseif(_lang STREQUAL "CXX")
+          check_cxx_compiler_flag("${flag}" _flag_works)
+      elseif(_lang STREQUAL "Fortran")
+          check_Fortran_compiler_flag("${flag}" _flag_works)
+      else()
+          message(FATAL_ERROR "Unknown language in set_compiler_flag: ${_lang}")
+      endif()
+    # flag可以使用则添加到局部变量 _valid_flags中
+    if(_flag_works)
+        list(APPEND _valid_flags "${flag}")
+    endif()
+  endforeach()
+  #将最后结果传递给函数外部变量，函数中的_result为形参，需解引用到外部变量
+  set(${_result} "${_valid_flags}" PARENT_SCOPE)
+endfunction()
+
