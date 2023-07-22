@@ -30,4 +30,4 @@ set_target_properties(hwserver hwclient
         CXX_STANDARD 11
         CXX_EXTENSIONS OFF
         CXX_STANDARD_REQUIRED ON
-    )
+)
